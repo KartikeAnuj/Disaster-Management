@@ -79,7 +79,7 @@ export const AuthProvider = ({ children }) => {
     const checkAuth = async () => {
       if (state.token) {
         try {
-          const response = await axios.get('/api/auth/me');
+          const response = await axios.get('http://localhost:8000/api/auth/me');
           dispatch({
             type: 'AUTH_SUCCESS',
             payload: {
@@ -103,7 +103,7 @@ export const AuthProvider = ({ children }) => {
     dispatch({ type: 'AUTH_START' });
     
     try {
-      const response = await axios.post('/api/auth/login', { email, password });
+      const response = await axios.post('http://localhost:8000/api/auth/login', { email, password });
       const { user, token } = response.data.data;
       
       localStorage.setItem('token', token);
@@ -126,7 +126,7 @@ export const AuthProvider = ({ children }) => {
     dispatch({ type: 'AUTH_START' });
     
     try {
-      const response = await axios.post('/api/auth/register', userData);
+      const response = await axios.post('http://localhost:8000/api/auth/register', userData);
       const { user, token } = response.data.data;
       
       localStorage.setItem('token', token);
@@ -153,7 +153,7 @@ export const AuthProvider = ({ children }) => {
 
   const updateProfile = async (profileData) => {
     try {
-      const response = await axios.put('/api/auth/profile', profileData);
+      const response = await axios.put('http://localhost:8000/api/auth/profile', profileData);
       dispatch({
         type: 'UPDATE_USER',
         payload: response.data.data.user
@@ -169,7 +169,7 @@ export const AuthProvider = ({ children }) => {
 
   const changePassword = async (currentPassword, newPassword) => {
     try {
-      await axios.put('/api/auth/change-password', {
+      await axios.put('http://localhost:8000/api/auth/change-password', {
         currentPassword,
         newPassword
       });
